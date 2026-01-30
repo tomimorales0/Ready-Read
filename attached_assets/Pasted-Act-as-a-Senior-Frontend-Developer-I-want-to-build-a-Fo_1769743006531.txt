@@ -1,0 +1,39 @@
+Act as a Senior Frontend Developer. I want to build a "Focus Reading App" (RSVP Reader) from scratch using React, Vite, and TailwindCSS.
+
+The app must be "Local-First" (Client-side only, no backend). It should focus on reading speed and state persistence.
+
+### Core Features & Architecture:
+
+1.  **State Persistence & "Welcome Back" Flow:**
+    - Use `localStorage` to save the user's entire session automatically (current text content, current word index, filename, and WPM setting).
+    - **On App Launch:**
+        - Check if there is a saved session in `localStorage`.
+        - If YES: Show a "Welcome Back" screen. Display the name of the last file and a big button: "Resume reading at X%". Also provide a secondary button: "Upload a new text".
+        - If NO: Show the File Upload screen directly.
+
+2.  **File Parsing (PDF & TXT):**
+    - Create a clean drag-and-drop zone.
+    - Support `.txt` (via FileReader) and `.pdf`.
+    - Use `pdfjs-dist` for client-side PDF text extraction.
+    - **Note:** Ensure `pdfjs-dist` worker is correctly configured for a Vite environment to avoid build errors.
+
+3.  **The RSVP Reader (Rapid Serial Visual Presentation):**
+    - Display one word at a time centrally.
+    - **ORP Highlighting:** Highlight the "Optimal Recognition Point" (usually the middle character) in a distinct color (e.g., cyan or yellow) to guide the eye.
+    - Controls: Play/Pause, Rewind (10 words), Speed Slider (200-1000 WPM).
+    - **Auto-Save:** The current word index must be saved to localStorage constantly (or on pause/unload) so progress is never lost.
+
+4.  **"Flow Radio" (Background Music):**
+    - A persistent Audio Player component that doesn't reset when changing views.
+    - Load a predefined list of local MP3 files (assume paths: `/music/track1.mp3` to `/music/track5.mp3`).
+    - **Behavior:**
+        - Start paused.
+        - Loop and Shuffle logic: When a track ends, automatically play a random next track.
+        - Simple volume control.
+
+5.  **UI/Design:**
+    - **Dark Mode Only:** Deep gray/black background for reduced eye strain.
+    - Minimalist typography.
+    - Use `lucide-react` for icons.
+
+Please set up the project scaffolding, install dependencies (`pdfjs-dist`, `lucide-react`), and implement the logic with a focus on the "Resume Session" capability.
