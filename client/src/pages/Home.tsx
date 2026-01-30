@@ -4,7 +4,7 @@ import { extractTextFromPdf, parseTextFile } from '@/lib/pdf-utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, FileText, PlayCircle, Loader2, BookOpen } from 'lucide-react';
-import { Link, useLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -117,12 +117,14 @@ export default function Home() {
                         <span>{session.wpm} WPM</span>
                       </div>
                     </div>
-                    <Link href="/reader">
-                      <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
-                        <PlayCircle className="mr-2 h-4 w-4" />
-                        Resume Reading
-                      </Button>
-                    </Link>
+                    <Button 
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold"
+                      onClick={() => setLocation('/reader')}
+                      data-testid="button-resume-reading"
+                    >
+                      <PlayCircle className="mr-2 h-4 w-4" />
+                      Resume Reading
+                    </Button>
                   </>
                 ) : (
                   <div className="h-24 flex items-center justify-center text-muted-foreground text-sm italic">

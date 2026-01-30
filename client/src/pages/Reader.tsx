@@ -6,6 +6,7 @@ import { Slider } from '@/components/ui/slider';
 import { Link, useLocation } from 'wouter';
 import { Play, Pause, Rewind, ChevronLeft, Settings, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
