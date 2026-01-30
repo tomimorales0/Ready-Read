@@ -27,9 +27,13 @@ export default function Home() {
 
     try {
       let content = '';
-      if (file.type === 'application/pdf') {
+      const fileName = file.name.toLowerCase();
+      const isPdf = file.type === 'application/pdf' || fileName.endsWith('.pdf');
+      const isTxt = file.type === 'text/plain' || fileName.endsWith('.txt');
+
+      if (isPdf) {
         content = await extractTextFromPdf(file);
-      } else if (file.type === 'text/plain') {
+      } else if (isTxt) {
         content = await parseTextFile(file);
       } else {
         throw new Error('Unsupported file type. Please upload .txt or .pdf');
@@ -40,6 +44,7 @@ export default function Home() {
       }
 
       startNewSession(content, file.name);
+      setLocation('/reader');
     } catch (err: any) {
       console.error(err);
       setError(err.message || 'Failed to process file');
