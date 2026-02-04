@@ -1,4 +1,4 @@
-import { Play, Pause, SkipForward, SkipBack, Shuffle, Volume2, VolumeX } from 'lucide-react';
+import { Music, Play, Pause, SkipForward, SkipBack, Shuffle, Volume2, VolumeX } from 'lucide-react';
 import { useAudioPlayer } from '@/hooks/use-audio-player';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
@@ -20,20 +20,39 @@ export function FlowRadio() {
   const trackName = currentTrack.split('/').pop()?.replace('.mp3', '') || 'Unknown Track';
 
   return (
-    <motion.div 
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+    <motion.div
+      initial={{ x: 40, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md"
+      className="fixed right-4 top-1/2 -translate-y-1/2 z-50 group flex flex-col items-end"
     >
-      <div className="bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl p-4 shadow-2xl shadow-black/50">
+      {/* Trigger icon (always visible) */}
+      <button
+        type="button"
+        className="h-11 w-11 rounded-full bg-card/80 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/40 grid place-items-center text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
+        aria-label="Open music player"
+        title="Music"
+      >
+        <Music size={18} />
+      </button>
+
+      {/* Dropdown panel (hover to show) */}
+      <div
+        className={cn(
+          "mt-2 w-[320px] max-w-[calc(100vw-2rem)]",
+          "bg-card/85 backdrop-blur-xl border border-border/50 rounded-2xl p-4 shadow-2xl shadow-black/50",
+          "origin-top-right transition-all duration-300",
+          "opacity-0 scale-95 invisible pointer-events-none",
+          "group-hover:opacity-100 group-hover:scale-100 group-hover:visible group-hover:pointer-events-auto"
+        )}
+      >
         <div className="flex flex-col gap-4">
           
           {/* Track Info */}
           <div className="flex items-center justify-between px-2">
             <div className="flex flex-col overflow-hidden">
               <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold font-mono">
-                Flow Radio
+                Ready Radio
               </span>
               <div className="h-6 overflow-hidden relative w-full">
                 <AnimatePresence mode="wait">

@@ -1,10 +1,10 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Configure worker - crucial for Vite
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString();
+// --- SOLUCIÓN DEL ERROR DE WORKER ---
+// En lugar de buscar el archivo localmente (que a veces falla en Vite),
+// le decimos que descargue el worker exacto para esta versión desde un CDN.
+// Esto arregla el error "fake worker failed".
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 export async function extractTextFromPdf(file: File): Promise<string> {
   const arrayBuffer = await file.arrayBuffer();
